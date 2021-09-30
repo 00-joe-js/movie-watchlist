@@ -56,6 +56,7 @@ router.get("/", async (req, res, next) => {
                 <html>
                     <head>
                         <title>Movie List</title>
+                        <link rel="stylesheet" type="text/css" href="/base-styling.css" />
                         <link rel="stylesheet" type="text/css" href="/movie-list-style.css" />
                     </head>
                     <body>
@@ -65,18 +66,18 @@ router.get("/", async (req, res, next) => {
                             <a href="/movies/feeling-lucky">I'm Feeling Lucky</a>
                             <a href="/movies/add-movie">Add to Watchlist</a>
                         </nav>
-                        <ul>
+                        <ul id="list-of-movies">
                             ${movies.map((movie) => {
                                 return `
                                     <li class="${movie.watched === true ? "watched": ""}">
-                                        <h2>${movie.title}</h2>
-                                        ${movie.imdbLink ? `<a target="_blank" href="${movie.imdbLink}">IMDB</a>` : ""}
-                                        <ul>
+                                        <h2>${movie.title} ${movie.imdbLink ? `<a target="_blank" href="${movie.imdbLink}">IMDB</a>` : ""}</h2>
+                                        
+                                        <ul class="genres-list">
                                             ${movie.genres.map(genre => {
                                                 return `<li><a href="/movies?genre=${genre.name}">${genre.name}</a></li>`;
                                             }).join("")}
                                         </ul>
-                                        ${movie.watched === false ? `<a href="/movies/${movie.id}/mark-watched">I watched this!</a>` : ""}
+                                        ${movie.watched === false ? `<a class="watch-link" href="/movies/${movie.id}/mark-watched">I watched this!</a>` : ""}
                                     </li>
                                 `
                             }).join("")}
@@ -107,7 +108,10 @@ router.get("/feeling-lucky", async (req, res, next) => {
         res.send(`
             <!DOCTYPE html>
             <html>
-                <head><title>Your Chosen Movie</title></head>
+                <head>
+                    <title>Your Chosen Movie</title>
+                    <link rel="stylesheet" type="text/css" href="/base-styling.css" />
+                </head>
                 <body>
                     <h1>You should watch: ${chosenMovie.title}</h1>
                     <a href="/movies">Back to list</a>
@@ -132,6 +136,7 @@ router.get("/add-movie", async (req, res) => {
         <html lang="en">
         <head>
             <title>Add a movie to your watchlist</title>
+            <link rel="stylesheet" type="text/css" href="/base-styling.css" />
         </head>
         <body>
             <h1>Add movie</h1>
@@ -193,8 +198,6 @@ router.post("/", async (req, res, next) => {
     const title = req.body.title;
     const imdbLink = req.body.link;
     const attachedGenreIds = req.body.genres;
-
-    console.log(req.body);
 
     try {
         const newMovie = await Movie.create({

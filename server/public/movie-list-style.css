@@ -5,3 +5,41 @@
 .watched h2 {
     text-decoration: line-through;
 }
+
+h1 {
+    margin-bottom: 0;
+}
+
+nav a {
+    margin-right: 20px;
+}
+
+#list-of-movies > li {
+    background: rgba(0, 0, 0, 0.2);
+    width: 90%;
+    padding: 5px;
+    margin-bottom: 20px;
+}
+
+#list-of-movies > li h2 {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.genres-list {
+    width: 400px;
+    display: flex;
+}
+
+.genres-list li {
+    margin-right: 20px;
+}
+
+.watch-link {
+    display: block;
+    font-size: 20px;
+    margin-top: 10px;
+    margin-right: 5px;
+    text-align: right;
+    font-style: italic;
+}
