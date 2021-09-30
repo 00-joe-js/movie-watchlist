@@ -6,8 +6,44 @@ module.exports = router;
 const { Movie, Genre } = require("../db");
 
 // GET /movies
-router.get("/", (req, res) => {
-    res.send("Movie list haha");
+router.get("/", async (req, res, next) => {
+    try {
+        const movies = await Movie.findAll({
+            include: [Genre],
+            order: [
+                ["title", "ASC"]
+            ]
+        });
+        res.send(
+            `
+                <!DOCTYPE html>
+                <html>
+                    <head><title>Movie List</title></head>
+                    <body>
+                        <h1>Movie List</h1>
+                        <ul>
+                            ${movies.map((movie) => {
+                                return `
+                                    <li>
+                                        <h2>${movie.title}</h2>
+                                        ${movie.imdbLink ? `<a target="_blank" href="${movie.imdbLink}">IMDB</a>` : ""}
+                                        <ul>
+                                            ${movie.genres.map(genre => {
+                                                return `<li>${genre.name}</li>`;
+                                            }).join("")}
+                                        </ul>
+                                    </li>
+                                `
+                            }).join("")}
+                        </ul>
+                    </body>
+                </html>
+            `
+        );
+    } catch (e) {
+        next(e);
+    }
+   
 });
 
 // GET /movies/add-movie
