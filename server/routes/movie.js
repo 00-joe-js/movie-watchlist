@@ -18,13 +18,16 @@ router.get("/", async (req, res, next) => {
             `
                 <!DOCTYPE html>
                 <html>
-                    <head><title>Movie List</title></head>
+                    <head>
+                        <title>Movie List</title>
+                        <link rel="stylesheet" type="text/css" href="/movie-list-style.css" />
+                    </head>
                     <body>
                         <h1>Movie List</h1>
                         <ul>
                             ${movies.map((movie) => {
                                 return `
-                                    <li>
+                                    <li class="${movie.watched === true ? "watched": ""}">
                                         <h2>${movie.title}</h2>
                                         ${movie.imdbLink ? `<a target="_blank" href="${movie.imdbLink}">IMDB</a>` : ""}
                                         <ul>
@@ -32,6 +35,7 @@ router.get("/", async (req, res, next) => {
                                                 return `<li>${genre.name}</li>`;
                                             }).join("")}
                                         </ul>
+                                        ${movie.watched === false ? `<a href="/movies/${movie.id}/mark-watched">I watched this!</a>` : ""}
                                     </li>
                                 `
                             }).join("")}
@@ -88,6 +92,27 @@ router.get("/add-movie", async (req, res) => {
         </body>
         </html>
     `);
+});
+
+router.get("/:movieId/mark-watched", async (req, res, next) => {
+    const id = req.params.movieId;
+
+    try {
+        const theMovie = await Movie.findByPk(id);
+
+        if (!theMovie) {
+            res.status(404).send("No movie with that id");
+        }
+
+        theMovie.watched = true;
+        await theMovie.save();
+
+        res.redirect("/movies");
+
+    } catch (e) {
+        next(e);
+    }
+
 });
 
 // POST /movies

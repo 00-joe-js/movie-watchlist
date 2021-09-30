@@ -1,0 +1,7 @@
+.watched {
+    opacity: 0.5;
+}
+
+.watched h2 {
+    text-decoration: line-through;
+}
