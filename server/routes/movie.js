@@ -62,7 +62,8 @@ router.get("/", async (req, res, next) => {
                         <h1>Movie List</h1>
                         <nav>
                             <a href="/movies?unwatched=1">Only Unwatched</a>
-
+                            <a href="/movies/feeling-lucky">I'm Feeling Lucky</a>
+                            <a href="/movies/add-movie">Add to Watchlist</a>
                         </nav>
                         <ul>
                             ${movies.map((movie) => {
@@ -88,6 +89,36 @@ router.get("/", async (req, res, next) => {
         next(e);
     }
    
+});
+
+// GET /movies/feeling-lucky
+router.get("/feeling-lucky", async (req, res, next) => {
+
+    try {
+        const allUnwatchedMovies = await Movie.findAll({
+            where: {
+                watched: false
+            }
+        });
+        console.log(allUnwatchedMovies);
+        const amountOfUnwatchedMovies = allUnwatchedMovies.length;
+        const randomNumber = Math.floor(Math.random() * amountOfUnwatchedMovies);
+        const chosenMovie = allUnwatchedMovies[randomNumber];
+        res.send(`
+            <!DOCTYPE html>
+            <html>
+                <head><title>Your Chosen Movie</title></head>
+                <body>
+                    <h1>You should watch: ${chosenMovie.title}</h1>
+                    <a href="/movies">Back to list</a>
+                    <a href="/movies/feeling-lucky">Try Again</a>
+                </body>
+            </html>
+        `);
+    } catch (e) {
+        next(e);
+    }
+
 });
 
 // GET /movies/add-movie
