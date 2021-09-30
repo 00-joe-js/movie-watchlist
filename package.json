@@ -1,0 +1,19 @@
+{
+  "name": "movie-watchlist",
+  "version": "1.0.0",
+  "description": "Self-hosted movie tracking website",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon server/index.js"
+  },
+  "author": "Joe",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.17.1",
+    "pg": "^8.7.1",
+    "sequelize": "^6.6.5"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.13"
+  }
+}
