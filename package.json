@@ -4,7 +4,8 @@
   "description": "Self-hosted movie tracking website",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/index.js"
+    "start": "nodemon server/index.js",
+    "seed": "node server/db/seed.js"
   },
   "author": "Joe",
   "license": "ISC",
