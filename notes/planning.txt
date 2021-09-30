@@ -23,8 +23,8 @@
 
     Proposed task order (subject to change):
 
-        - Set up initial boilerplate for project (git setup, installing libraries, establishing basic routes, creating database)
-        - Defining models with Sequelize for movies and genres tables, and relating them
+        x Set up initial boilerplate for project (git setup, installing libraries, establishing basic routes, creating database)
+        x Defining models with Sequelize for movies and genres tables, and relating them
         - Defining a route to send back an HTML page with a form to create a genre
         - Defining a route to send back an HTML page with a form to enter a new movie
         - Defining a route to send back an HTML page with the list of movies in the database
