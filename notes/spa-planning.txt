@@ -1,0 +1,30 @@
+
+
+    Single Page Application Refactor
+
+    ___ Turn the movie watchlist app into a React-driven single page application experience.
+
+    New components:
+
+        - Webpack build step that bundles front-end code.
+        - React.js used as the framework for defining and rendering all browser visuals of our app.
+        - Redux to structure and maintain important state.
+        - Server routes that intend to serve up information (JSON) instead of HTML documents.
+
+    Task list:
+
+        - Redefine the "homepage" (GET /) of our web server to serve up an HTML document that will define an element and request our bundle.js (front-end program).
+
+        - Implement a webpack build step that will compile front-end source code files into a single bundle, enable use of needed libraries from npm (react/redux/axios/etc), and translate our JSX into executable Javascript.
+
+        - Expand seed file a bit to get some data in the database to work off of.
+
+        - Implement a first <MovieList /> component that will render movies via React, and a route on the server that serves up JSON data to be used.
+
+        - Redux layer to hold any fetched movies, genres, or "random" movie (and possibly other state).
+
+        - More Redux to define the thunks and AJAX requests that will allow components to fetch needed data to be viewed, or data to be submitted (add movie/add genre forms), whilst refactoring routes to be JSON based instead of HTML document based or call res.redirect.
+
+        - Build the many components we will need like <GenreForm />, <AddMovieForm />, <ImFeelingLucky /> that will leverage the Redux layer and thunk action creators.
+
+        - Wire together the full user experience with React Router to enable navigation across the application and for certain actions to move the user to useful next steps (movie list after adding a movie).
