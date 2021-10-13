@@ -4,9 +4,10 @@
   "description": "Self-hosted movie tracking website",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon server/index.js",
+    "start": "nodemon --watch server --ignore server/public server/index.js",
     "seed": "node server/db/seed.js",
-    "build": "webpack"
+    "build": "webpack",
+    "build-watch": "webpack --watch"
   },
   "author": "Joe",
   "license": "ISC",
