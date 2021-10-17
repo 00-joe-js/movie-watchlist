@@ -57,13 +57,14 @@ class MovieForm extends React.Component {
             howManyGenresBeingSelected: this.state.howManyGenresBeingSelected + 1
         });
     }
-    handleSubmit(submitEvent) {
+    async handleSubmit(submitEvent) {
         submitEvent.preventDefault();
-        this.props.createNewMovieOnServer({
+        await this.props.createNewMovieOnServer({
             title: this.state.movieTitleTyped,
             link: this.state.imdbLinkTyped,
             genres: this.state.selectedGenres
         });
+        this.props.history.push("/");
     }
     render() {
         return (
@@ -101,7 +102,7 @@ const mapDispatchToProps = (dispatch) => {
         },
         createNewMovieOnServer: (newMovieInfo) => {
             const thunk = createMovie(newMovieInfo);
-            dispatch(thunk);
+            return dispatch(thunk);
         }
     };
 };
