@@ -13,13 +13,13 @@
 
     Task list:
 
-        - Redefine the "homepage" (GET /) of our web server to serve up an HTML document that will define an element and request our bundle.js (front-end program).
+        x Redefine the "homepage" (GET /) of our web server to serve up an HTML document that will define an element and request our bundle.js (front-end program).
 
-        - Implement a webpack build step that will compile front-end source code files into a single bundle, enable use of needed libraries from npm (react/redux/axios/etc), and translate our JSX into executable Javascript.
+        x Implement a webpack build step that will compile front-end source code files into a single bundle, enable use of needed libraries from npm (react/redux/axios/etc), and translate our JSX into executable Javascript.
 
-        - Expand seed file a bit to get some data in the database to work off of.
+        x Expand seed file a bit to get some data in the database to work off of.
 
-        - Implement a first <MovieList /> component that will render movies via React, and a route on the server that serves up JSON data to be used.
+        x Implement a first <MovieList /> component that will render movies via React, and a route on the server that serves up JSON data to be used.
 
         - Redux layer to hold any fetched movies, genres, or "random" movie (and possibly other state).
 

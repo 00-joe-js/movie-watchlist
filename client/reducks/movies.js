@@ -16,6 +16,23 @@ export const fetchMoviesFromServer = () => {
     };
 };
 
+// Another thunk action creator.
+export const createMovie = (newMovieInformation) => {
+    return async (dispatch) => {
+        try {
+            const response = await axios.post("/movies", {
+                title: newMovieInformation.title,
+                link: newMovieInformation.link,
+                genres: newMovieInformation.genres
+            });
+            const newMovieCreated = response.data;
+            return newMovieCreated;
+        } catch (e) {
+            console.error(e);
+        }
+    };
+};
+
 export default (state = [], action) => { // Initial state of movies: [] (no movies known)
     if (action.type === SET_MOVIES) {
         return action.moviesArray;
