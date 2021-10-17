@@ -15,21 +15,12 @@
 import { createStore, combineReducers, applyMiddleware } from "redux";
 import thunkMiddleware from "redux-thunk";
 
-import { SET_MOVIES } from "./movies";
-
+import moviesReducer from "./movies";
+import genresReducer from "./genres";
 
 const storeObject = createStore(combineReducers({
-    movies: (state = [], action) => { // Initial state of movies: [] (no movies known)
-
-        if (action.type === SET_MOVIES) {
-            return action.moviesArray;
-        }
-
-        return state;
-    },
-    selectableGenres: (state = []) => { // Initial state of selectable genres: [] (no genres known)
-        return state;
-    },
+    movies: moviesReducer,
+    selectableGenres: genresReducer,
     randomMovie: (state = null) => { // Initial state of movie object in I'm feeling lucky: nothing/null
         return state;
     }

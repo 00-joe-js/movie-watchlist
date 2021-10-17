@@ -7,14 +7,18 @@ export const setMoviesOnStore = (movies) => {
     return { type: SET_MOVIES, moviesArray: movies };
 };
 
-
 // Thunk action creator.
 export const fetchMoviesFromServer = () => {
-
     return async (dispatch) => { // This function gets dispatched.
         const response = await axios.get("/movies");
         const movies = response.data;
         dispatch(setMoviesOnStore(movies));
     };
+};
 
+export default (state = [], action) => { // Initial state of movies: [] (no movies known)
+    if (action.type === SET_MOVIES) {
+        return action.moviesArray;
+    }
+    return state;
 };
