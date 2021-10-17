@@ -33,7 +33,27 @@ export const createMovie = (newMovieInformation) => {
     };
 };
 
+export const watchMovie = (idOfNewWatchedMovie) => {
+
+    return async (dispatch, getState) => {
+        const response = await axios.put(`/movies/${idOfNewWatchedMovie}`, { watched: true });
+        const updatedMovie = response.data;
+        let updatedMovies = getState().movies.slice(0);
+        updatedMovies = updatedMovies.map(eachMovie => {
+            if (eachMovie.id !== idOfNewWatchedMovie) {
+                return eachMovie;
+            }
+            return {
+                ...eachMovie, watched: true
+            };
+        })
+        dispatch(setMoviesOnStore(updatedMovies));
+    };
+
+};
+
 export default (state = [], action) => { // Initial state of movies: [] (no movies known)
+    console.log(action);
     if (action.type === SET_MOVIES) {
         return action.moviesArray;
     }

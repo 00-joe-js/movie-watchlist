@@ -1,11 +1,17 @@
 import React from "react";
-import axios from "axios";
 
-import {connect} from "react-redux";
+import { connect } from "react-redux";
 
-import {fetchMoviesFromServer} from "../reducks/movies";
+import { fetchMoviesFromServer, watchMovie } from "../reducks/movies";
 
-class Movie extends React.Component {
+class MovieComp extends React.Component {
+    constructor() {
+        super();
+        this.setWatched = this.setWatched.bind(this);
+    }
+    setWatched() {
+        this.props.setMovieWatched(this.props.theMovie.id);
+    }
     render() {
         const { theMovie } = this.props;
         return (
@@ -17,11 +23,22 @@ class Movie extends React.Component {
                         return <li key={genre.id}><a>{genre.name}</a></li>;
                     })}
                 </ul>
-                {/* ${movie.watched === false ? `<a class="watch-link" href="/movies/${movie.id}/mark-watched">I watched this!</a>` : ""} */}
+                {theMovie.watched === false && <a className="watch-link" onClick={this.setWatched}>I just watched this!</a>}
             </li>
         )
     }
 }
+
+const mDTP = (dispatch) => {
+    return {
+        setMovieWatched: (id) => {
+            const thunk = watchMovie(id);
+            dispatch(thunk);
+        }
+    };
+};
+const singleMovieConnector = connect(null, mDTP);
+const Movie = singleMovieConnector(MovieComp);
 
 class MovieList extends React.Component {
     componentDidMount() {

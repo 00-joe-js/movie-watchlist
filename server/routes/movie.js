@@ -187,7 +187,8 @@ router.get("/add-movie", async (req, res) => {
     `);
 });
 
-router.get("/:movieId/mark-watched", async (req, res, next) => {
+router.put("/:movieId", async (req, res, next) => {
+    
     const id = req.params.movieId;
 
     try {
@@ -198,10 +199,10 @@ router.get("/:movieId/mark-watched", async (req, res, next) => {
             return;
         }
 
-        theMovie.watched = true;
+        theMovie.watched = req.body.watched;
         await theMovie.save();
 
-        res.redirect("/movies");
+        res.json(theMovie);
 
     } catch (e) {
         next(e);
